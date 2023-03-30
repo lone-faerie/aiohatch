@@ -13,7 +13,7 @@ from .shadow_client_subscriber import ShadowClientSubscriberMixin
 _LOGGER = logging.getLogger(__name__)
 
 
-class RestIot(ShadowClientSubscriberMixin):
+class Restore(ShadowClientSubscriberMixin):
     audio_track: str = None
     firmware_version: str = None
     volume: int = 0
