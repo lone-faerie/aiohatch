@@ -103,21 +103,21 @@ class Restore(ShadowClientSubscriberMixin):
 
     def set_volume(self, percentage: int):
         _LOGGER.debug(f"Setting volume: {percentage}")
-        self._update({"current": {"sound": {"v": convert_from_percentage(percentage)}}})
+        self._update({"sound": {"v": convert_from_percentage(percentage)}})
 
     def set_clock(self, brightness: int = 0):
         _LOGGER.debug(f"Setting clock on: {brightness}")
         self._update(
-            {"clock": {"flags": self.flags | RIOT_FLAGS_CLOCK_ON, "i": convert_from_percentage(brightness)}}
+            {"restoreClock": {"flags": self.flags | RIOT_FLAGS_CLOCK_ON, "i": convert_from_percentage(brightness)}}
         )
 
     def turn_clock_off(self):
         _LOGGER.debug(f"Turn off clock")
-        self._update({"clock": {"flags": self.flags ^ RIOT_FLAGS_CLOCK_ON, "i": 655}})
+        self._update({"restoreClock": {"flags": self.flags ^ RIOT_FLAGS_CLOCK_ON, "i": 655}})
 
     def turn_off(self):
         _LOGGER.debug("Turning off sound")
-        self._update({"current": {"srId": 0, "step": 0, "playing": "none"}})
+        self._update({"content": {"routineId": 0, "step": 0, "playing": "none"}})
 
     def turn_light_off(self):
         _LOGGER.debug(f"Turning light off")
@@ -126,30 +126,20 @@ class Restore(ShadowClientSubscriberMixin):
         if self.current_playing == "routine":
             self._update(
                 {
-                    "current": {
-                        "color": {
-                            "id": 9998,
-                            "r": 0,
-                            "g": 0,
-                            "b": 0,
-                            "w": 0,
-                        }
+                    "color": {
+                        "enabled": false,
                     }
                 }
             )
         if self.current_playing == "remote":
             self._update(
                 {
-                    "current": {
+                    "content": {
                         "playing": "none",
-                        "color": {
-                            "id": 9998,
-                            "r": 0,
-                            "g": 0,
-                            "b": 0,
-                            "w": 0,
-                        },
-                    }
+                    },
+                    "color": {
+                        "enabled": false,
+                    },
                 }
             )
 
@@ -165,19 +155,15 @@ class Restore(ShadowClientSubscriberMixin):
         if self.current_playing == "none":
             self._update(
                 {
-                    "current": {
-                        "srId": 0,
+                    "content": {
+                        "routineId": 0,
                         "step": 0,
                         "playing": "remote",
-                        "color": {
-                            "id": new_color_id,
-                            "r": convert_from_hex(red),
-                            "g": convert_from_hex(green),
-                            "b": convert_from_hex(blue),
-                            "i": convert_from_percentage(brightness),
-                            "w": white,
-                        },
-                    }
+                    },
+                    "color": {
+                        "id": self.color_id,
+                        "i": convert_from_percentage(brightness),
+                    },
                 }
             )
         self._update(
