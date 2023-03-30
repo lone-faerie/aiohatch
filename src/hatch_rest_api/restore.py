@@ -21,7 +21,6 @@ class Restore(ShadowClientSubscriberMixin):
     is_online: bool = False
     current_playing: str = "none"
 
-    battery_level: int = None
     color_id: int = 9998
     sound_id: int = 19998
     red: int = 0
@@ -29,28 +28,14 @@ class Restore(ShadowClientSubscriberMixin):
     blue: int = 0
     white: int = 0
     brightness: int = 0
-    charging_status: int = None  # Expected values: 0= Not Charging, 3= Charging, plugged in, 5= Charging, on base
     clock: int = None
     flags: int = None
-    toddler_lock: bool = False
-    toddler_lock_mode: str = None
 
     def _update_local_state(self, state):
         _LOGGER.debug(f"update local state: {self.device_name}, {state}")
         if safely_get_json_value(state, "deviceInfo.f") is not None:
             self.firmware_version = safely_get_json_value(state, "deviceInfo.f")
-        if safely_get_json_value(state, "deviceInfo.b") is not None:
-            self.battery_level = safely_get_json_value(state, "deviceInfo.b", int)
-        if safely_get_json_value(state, "deviceInfo.powerStatus") is not None:
-            self.charging_status = safely_get_json_value(
-                state, "deviceInfo.powerStatus", int
-            )
-        if safely_get_json_value(state, "toddlerLockOn") is not None:
-            self.toddler_lock = safely_get_json_value(state, "toddlerLockOn", bool)
-        if safely_get_json_value(state, "toddlerLock.turnOnMode") is not None:
-            self.toddler_lock_mode = safely_get_json_value(
-                state, "toddlerLock.turnOnMode", str
-            )
+
         if safely_get_json_value(state, "current.playing") is not None:
             self.current_playing = safely_get_json_value(state, "current.playing")
         if safely_get_json_value(state, "connected") is not None:
@@ -99,7 +84,6 @@ class Restore(ShadowClientSubscriberMixin):
             "firmware_version": self.firmware_version,
             "is_online": self.is_online,
             "is_on": self.is_on,
-            "battery_level": self.battery_level,
             "is_playing": self.is_playing,
             "volume": self.volume,
             "red": self.red,
@@ -107,13 +91,10 @@ class Restore(ShadowClientSubscriberMixin):
             "blue": self.blue,
             "brightness": self.brightness,
             "document_version": self.document_version,
-            "charging_status": self.charging_status,
             "clock": self.clock,
             "flags": self.flags,
             "is_clock_on": self.is_clock_on,
             "is_clock_24h": self.is_clock_24h,
-            "toddler_lock": self.toddler_lock,
-            "toddler_lock_mode": self.toddler_lock_mode,
         }
 
     def __str__(self):
