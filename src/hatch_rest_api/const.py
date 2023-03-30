@@ -67,4 +67,14 @@ RIOT_FLAGS_CLOCK_24_HOUR = 2048
 RIOT_FLAGS_CLOCK_ON = 32768
 
 class RestoreColor(Enum):
-    NONE: 0
+    NONE = 0
+    White = 1
+    WarmWhite = 2
+    Coral = 3
+    Red = 4
+    LightOrange = 5
+    Peach = 6
+    Orange = 7
+    LightYellow = 8
+    Yellow = 9
+    Gold = 10
