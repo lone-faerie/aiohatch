@@ -18,15 +18,12 @@ class Restore(ShadowClientSubscriberMixin):
     firmware_version: str = None
     volume: int = 0
 
-    is_online: bool = False
     current_playing: str = "none"
 
     color_id: int = 9998
+    color_enabled: bool = False
     sound_id: int = 19998
-    red: int = 0
-    green: int = 0
-    blue: int = 0
-    white: int = 0
+    sound_enabled: bool = False
     brightness: int = 0
     clock: int = None
     flags: int = None
@@ -38,30 +35,18 @@ class Restore(ShadowClientSubscriberMixin):
 
         if safely_get_json_value(state, "content.playing") is not None:
             self.current_playing = safely_get_json_value(state, "content.playing")
-        if safely_get_json_value(state, "connected") is not None:
-            self.is_online = safely_get_json_value(state, "connected", bool)
         if safely_get_json_value(state, "sound.v") is not None:
             self.volume = convert_to_percentage(
                 safely_get_json_value(state, "sound.v", int)
             )
         if safely_get_json_value(state, "sound.id", int) is not None:
             self.sound_id = safely_get_json_value(state, "sound.id", int)
+        if safely_get_json_value(state, "sound.enabled", bool) is not None:
+            self.sound_enabled = safely_get_json_value(state, "sound.enabled", bool)
         if safely_get_json_value(state, "color.id") is not None:
             self.color_id = safely_get_json_value(state, "color.id", int)
-        if safely_get_json_value(state, "color.w") is not None:
-            self.white = safely_get_json_value(state, "ccolor.w", int)
-        if safely_get_json_value(state, "color.r") is not None:
-            self.red = convert_to_hex(
-                safely_get_json_value(state, "color.r", int)
-            )
-        if safely_get_json_value(state, "color.g") is not None:
-            self.green = convert_to_hex(
-                safely_get_json_value(state, "color.g", int)
-            )
-        if safely_get_json_value(state, "color.b") is not None:
-            self.blue = convert_to_hex(
-                safely_get_json_value(state, "color.b", int)
-            )
+        if safely_get_json_value(state, "color.enabled", bool) is not None:
+            self.color_enabled = safely_get_json_value(state, "color.enabled", bool)
         if safely_get_json_value(state, "color.i") is not None:
             self.brightness = convert_to_percentage(
                 safely_get_json_value(state, "color.i", int)
@@ -82,13 +67,9 @@ class Restore(ShadowClientSubscriberMixin):
             "thing_name": self.thing_name,
             "mac": self.mac,
             "firmware_version": self.firmware_version,
-            "is_online": self.is_online,
             "is_on": self.is_on,
             "is_playing": self.is_playing,
             "volume": self.volume,
-            "red": self.red,
-            "green": self.green,
-            "blue": self.blue,
             "brightness": self.brightness,
             "document_version": self.document_version,
             "clock": self.clock,
@@ -106,11 +87,11 @@ class Restore(ShadowClientSubscriberMixin):
 
     @property
     def is_light_on(self):
-        return self.color_id != 9998 and self.color_id != 0
+        return self.color_enabled
 
     @property
     def is_playing(self):
-        return self.sound_id != 19998
+        return self.sound_enabled
 
     @property
     def is_clock_on(self):
@@ -120,24 +101,9 @@ class Restore(ShadowClientSubscriberMixin):
     def is_clock_24h(self):
         return self.flags is not None and self.flags & RIOT_FLAGS_CLOCK_24_HOUR
 
-    def favorite_names(self, active_only: bool = True):
-        names = []
-        for favorite in self.favorites:
-            if active_only and favorite["active"]:
-                names.append(f"{favorite['name']}-{favorite['id']}")
-            else:
-                names.append(f"{favorite['name']}-{favorite['id']}")
-        return names
-
     def set_volume(self, percentage: int):
         _LOGGER.debug(f"Setting volume: {percentage}")
         self._update({"current": {"sound": {"v": convert_from_percentage(percentage)}}})
-
-    # Expected string value for mode is "never" or "always". The API also supports "custom" for defining a time range
-    def set_toddler_lock(self, on: bool):
-        _LOGGER.debug(f"Setting Toddler On Lock: {on}")
-        mode = "always" if on else "never"
-        self._update({"toddlerLock": {"turnOnMode": mode}})
 
     def set_clock(self, brightness: int = 0):
         _LOGGER.debug(f"Setting clock on: {brightness}")
@@ -148,12 +114,6 @@ class Restore(ShadowClientSubscriberMixin):
     def turn_clock_off(self):
         _LOGGER.debug(f"Turn off clock")
         self._update({"clock": {"flags": self.flags ^ RIOT_FLAGS_CLOCK_ON, "i": 655}})
-
-    # favorite_name_id is expected to be a string of name-id since name alone isn't unique
-    def set_favorite(self, favorite_name_id: str):
-        _LOGGER.debug(f"Setting favorite: {favorite_name_id}")
-        fav_id = int(favorite_name_id.split("-")[1])
-        self._update({"current": {"srId": fav_id, "step": 1, "playing": "routine"}})
 
     def turn_off(self):
         _LOGGER.debug("Turning off sound")
