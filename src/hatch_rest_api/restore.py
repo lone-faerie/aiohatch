@@ -168,15 +168,9 @@ class Restore(ShadowClientSubscriberMixin):
             )
         self._update(
             {
-                "current": {
-                    "color": {
-                        "id": new_color_id,
-                        "r": convert_from_hex(red),
-                        "g": convert_from_hex(green),
-                        "b": convert_from_hex(blue),
-                        "i": convert_from_percentage(brightness),
-                        "w": white,
-                    }
+                "color": {
+                    "id": self.color_id,
+                    "i": convert_from_percentage(brightness),
                 }
             }
         )
