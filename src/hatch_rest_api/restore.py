@@ -36,42 +36,42 @@ class Restore(ShadowClientSubscriberMixin):
         if safely_get_json_value(state, "deviceInfo.f") is not None:
             self.firmware_version = safely_get_json_value(state, "deviceInfo.f")
 
-        if safely_get_json_value(state, "current.playing") is not None:
-            self.current_playing = safely_get_json_value(state, "current.playing")
+        if safely_get_json_value(state, "content.playing") is not None:
+            self.current_playing = safely_get_json_value(state, "content.playing")
         if safely_get_json_value(state, "connected") is not None:
             self.is_online = safely_get_json_value(state, "connected", bool)
-        if safely_get_json_value(state, "current.sound.v") is not None:
+        if safely_get_json_value(state, "sound.v") is not None:
             self.volume = convert_to_percentage(
-                safely_get_json_value(state, "current.sound.v", int)
+                safely_get_json_value(state, "sound.v", int)
             )
-        if safely_get_json_value(state, "current.sound.id", int) is not None:
-            self.sound_id = safely_get_json_value(state, "current.sound.id", int)
-        if safely_get_json_value(state, "current.color.id") is not None:
-            self.color_id = safely_get_json_value(state, "current.color.id", int)
-        if safely_get_json_value(state, "current.color.w") is not None:
-            self.white = safely_get_json_value(state, "current.color.w", int)
-        if safely_get_json_value(state, "current.color.r") is not None:
+        if safely_get_json_value(state, "sound.id", int) is not None:
+            self.sound_id = safely_get_json_value(state, "sound.id", int)
+        if safely_get_json_value(state, "color.id") is not None:
+            self.color_id = safely_get_json_value(state, "color.id", int)
+        if safely_get_json_value(state, "color.w") is not None:
+            self.white = safely_get_json_value(state, "ccolor.w", int)
+        if safely_get_json_value(state, "color.r") is not None:
             self.red = convert_to_hex(
-                safely_get_json_value(state, "current.color.r", int)
+                safely_get_json_value(state, "color.r", int)
             )
-        if safely_get_json_value(state, "current.color.g") is not None:
+        if safely_get_json_value(state, "color.g") is not None:
             self.green = convert_to_hex(
-                safely_get_json_value(state, "current.color.g", int)
+                safely_get_json_value(state, "color.g", int)
             )
-        if safely_get_json_value(state, "current.color.b") is not None:
+        if safely_get_json_value(state, "color.b") is not None:
             self.blue = convert_to_hex(
-                safely_get_json_value(state, "current.color.b", int)
+                safely_get_json_value(state, "color.b", int)
             )
-        if safely_get_json_value(state, "current.color.i") is not None:
+        if safely_get_json_value(state, "color.i") is not None:
             self.brightness = convert_to_percentage(
-                safely_get_json_value(state, "current.color.i", int)
+                safely_get_json_value(state, "color.i", int)
             )
-        if safely_get_json_value(state, "clock.i") is not None:
+        if safely_get_json_value(state, "restoreClock.i") is not None:
             self.clock = convert_to_percentage(
-                safely_get_json_value(state, "clock.i", int)
+                safely_get_json_value(state, "restoreClock.i", int)
             )
-        if safely_get_json_value(state, "clock.flags") is not None:
-            self.flags = safely_get_json_value(state, "clock.flags", int)
+        if safely_get_json_value(state, "restoreClock.flags") is not None:
+            self.flags = safely_get_json_value(state, "restoreClock.flags", int)
 
         _LOGGER.debug(f"new state:{self}")
         self.publish_updates()
