@@ -14,6 +14,7 @@ from .rest_mini import RestMini
 from .rest_plus import RestPlus
 from .riot import RestIot
 from .restoreiot import RestoreIot
+from .restore import Restore
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -87,6 +88,13 @@ async def get_rest_devices(
             )
         elif iot_device["product"] == "restoreIot":
             return RestoreIot(
+                device_name=iot_device["name"],
+                thing_name=iot_device["thingName"],
+                mac=iot_device["macAddress"],
+                shadow_client=shadow_client,
+            )
+        elif iot_device["product"] == "restore":
+            return Restore(
                 device_name=iot_device["name"],
                 thing_name=iot_device["thingName"],
                 mac=iot_device["macAddress"],
