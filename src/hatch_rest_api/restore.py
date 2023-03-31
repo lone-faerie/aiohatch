@@ -20,6 +20,7 @@ class Restore(ShadowClientSubscriberMixin):
 
     is_online: bool = False
     current_playing: str = "none"
+    routine_step: int = 0
 
     color: RestoreColor = None
     color_enabled: bool = False
@@ -63,6 +64,9 @@ class Restore(ShadowClientSubscriberMixin):
         if safely_get_json_value(state, "restoreClock.flags") is not None:
             self.flags = safely_get_json_value(state, "restoreClock.flags", int)
 
+        if safely_get_json_value(state, "content.step", int) is not None:
+            self.routine_step = safely_get_json_value(state, "content.step", int)
+
         _LOGGER.debug(f"new state:{self}")
         self.publish_updates()
 
@@ -81,6 +85,7 @@ class Restore(ShadowClientSubscriberMixin):
             "flags": self.flags,
             "is_clock_on": self.is_clock_on,
             "is_clock_24h": self.is_clock_24h,
+            "routine_step": self.routine_step
         }
 
     def __str__(self):
@@ -179,3 +184,6 @@ class Restore(ShadowClientSubscriberMixin):
                 }
             }
         )
+
+    def set_routine_step(self, step: int):
+        pass
