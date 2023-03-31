@@ -85,7 +85,7 @@ class Restore(ShadowClientSubscriberMixin):
             "flags": self.flags,
             "is_clock_on": self.is_clock_on,
             "is_clock_24h": self.is_clock_24h,
-            "routine_step": self.routine_step
+            "routine_step": self.routine_step,
         }
 
     def __str__(self):
@@ -93,7 +93,7 @@ class Restore(ShadowClientSubscriberMixin):
 
     @property
     def is_on(self):
-        return self.is_light_on or self.is_playing
+        return self.is_light_on or self.is_playing or self.routine_step
 
     @property
     def is_light_on(self):
