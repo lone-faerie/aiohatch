@@ -86,6 +86,7 @@ class Restore(ShadowClientSubscriberMixin):
             "is_clock_on": self.is_clock_on,
             "is_clock_24h": self.is_clock_24h,
             "routine_step": self.routine_step,
+            "color": self.color.name if self.color is not None else "None",
         }
 
     def __str__(self):
