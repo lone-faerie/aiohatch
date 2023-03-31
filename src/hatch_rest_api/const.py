@@ -81,4 +81,12 @@ class RestoreColor(Enum):
     LightGreen = 11
     Mint = 12
     Green = 13
-    
+    LightTurquoise = 14
+    Aqua = 15
+    Turquoise = 15
+    LightBlue = 16
+    Sky = 17
+    Blue = 18
+    Lilac = 19
+    Purple = 20
+    LightPink = 21
