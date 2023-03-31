@@ -84,12 +84,12 @@ class RestoreColor(Enum):
     LightTurquoise = 225
     Aqua = 226
     Turquoise = 227
-    LightBlue = 16
-    Sky = 17
-    Blue = 18
-    Lilac = 19
-    Purple = 20
-    LightPink = 21
+    LightBlue = 216
+    Sky = 217
+    Blue = 218
+    Lilac = 220
+    Purple = 221
+    LightPink = 222
 
 RESTORE_COLORS = [
     RestoreColor.NONE,
