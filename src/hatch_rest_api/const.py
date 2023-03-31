@@ -79,4 +79,6 @@ class RestoreColor(Enum):
     Yellow = 9
     Gold = 10
     LightGreen = 11
-    Green
+    Mint = 12
+    Green = 13
+    
