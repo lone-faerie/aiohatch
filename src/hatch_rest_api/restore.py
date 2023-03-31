@@ -149,7 +149,7 @@ class Restore(ShadowClientSubscriberMixin):
         self, color: RestoreColor, brightness: int = 0
     ):
         # 9999 = custom color 9998 = turn off
-        new_color_id: int = color.value
+        new_color_id: int = color.value if (color is not RestoreColor.NONE) else self.color.value
         _LOGGER.debug(
             f"color: {color.name} brightness: {brightness}"
         )
