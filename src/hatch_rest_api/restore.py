@@ -192,7 +192,7 @@ class Restore(ShadowClientSubscriberMixin):
         self._update(
             {
                 "content": {
-                    "playing": self.current_playing if self.current_playing == "routine" else "routine",
+                    "playing": "routine",
                     "step": step,
                 }
             }
