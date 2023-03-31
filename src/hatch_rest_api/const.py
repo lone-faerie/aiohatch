@@ -78,3 +78,14 @@ class RestoreColor(Enum):
     LightYellow = 8
     Yellow = 9
     Gold = 10
+
+    def xy_color(self):
+        if self is RestoreColor.White:
+            return 0, 0
+        elif self is RestoreColor.WarmWhite:
+            return 0, 0
+        else:
+            return -1, -1
+
+    def get_closest(self, x, y):
+        pass
