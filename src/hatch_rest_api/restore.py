@@ -159,7 +159,7 @@ class Restore(ShadowClientSubscriberMixin):
         # 9999 = custom color 9998 = turn off
         new_color_id: int = color.value if (color is not RestoreColor.NONE) else self.color.value
         _LOGGER.debug(
-            f"color: {color.name} brightness: {brightness}"
+            f"Setting color: {color.name} brightness: {brightness}"
         )
         # If there is no sound playing, and you want to turn on the light the playing value has to be set to remote
         if self.current_playing == "none":
@@ -189,6 +189,7 @@ class Restore(ShadowClientSubscriberMixin):
         if step < 1:
             self.turn_off()
             return
+        _LOGGER.debug(f"Setting routine step: {step}")
         self._update(
             {
                 "content": {
