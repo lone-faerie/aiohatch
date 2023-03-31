@@ -18,6 +18,7 @@ class Restore(ShadowClientSubscriberMixin):
     firmware_version: str = None
     volume: int = 0
 
+    is_online: bool = False
     current_playing: str = "none"
 
     color: RestoreColor = None
@@ -32,6 +33,8 @@ class Restore(ShadowClientSubscriberMixin):
         _LOGGER.debug(f"update local state: {self.device_name}, {state}")
         if safely_get_json_value(state, "deviceInfo.f") is not None:
             self.firmware_version = safely_get_json_value(state, "deviceInfo.f")
+        if safely_get_json_value(state, "connected") is not None:
+            self.is_online = safely_get_json_value(state, "connected", bool)
 
         if safely_get_json_value(state, "content.playing") is not None:
             self.current_playing = safely_get_json_value(state, "content.playing")
