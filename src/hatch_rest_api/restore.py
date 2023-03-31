@@ -22,7 +22,7 @@ class Restore(ShadowClientSubscriberMixin):
     current_playing: str = "none"
     routine_step: int = 0
 
-    color: RestoreColor = None
+    color: RestoreColor = RestoreColor.NONE
     color_enabled: bool = False
     sound_id: int = 19998
     sound_enabled: bool = False
@@ -86,7 +86,7 @@ class Restore(ShadowClientSubscriberMixin):
             "is_clock_on": self.is_clock_on,
             "is_clock_24h": self.is_clock_24h,
             "routine_step": self.routine_step,
-            "color": self.color.name if self.color is not None else "None",
+            "color": self.color.name,
         }
 
     def __str__(self):
@@ -187,10 +187,10 @@ class Restore(ShadowClientSubscriberMixin):
         )
 
     def set_routine_step(self, step: int):
+        _LOGGER.debug(f"Setting routine step: {step}")
         if step < 1:
             self.turn_off()
             return
-        _LOGGER.debug(f"Setting routine step: {step}")
         self._update(
             {
                 "content": {
