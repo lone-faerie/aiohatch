@@ -44,7 +44,9 @@ class Restore(ShadowClientSubscriberMixin):
         if safely_get_json_value(state, "sound.enabled", bool) is not None:
             self.sound_enabled = safely_get_json_value(state, "sound.enabled", bool)
         if safely_get_json_value(state, "color.id") is not None:
-            self.color = RestoreColor(safely_get_json_value(state, "color.id", int))
+            self.color = RestoreColor(
+                safely_get_json_value(state, "color.id", int)
+            )
         if safely_get_json_value(state, "color.enabled", bool) is not None:
             self.color_enabled = safely_get_json_value(state, "color.enabled", bool)
         if safely_get_json_value(state, "color.i") is not None:
@@ -147,9 +149,9 @@ class Restore(ShadowClientSubscriberMixin):
         self, color: RestoreColor, brightness: int = 0
     ):
         # 9999 = custom color 9998 = turn off
-        new_color_id: int = 9999
+        new_color_id: int = color.value
         _LOGGER.debug(
-            f"red: {red} green: {green} blue: {blue} brightness: {brightness} white: {white}"
+            f"color: {color.name} brightness: {brightness}"
         )
         # If there is no sound playing, and you want to turn on the light the playing value has to be set to remote
         if self.current_playing == "none":
@@ -161,7 +163,7 @@ class Restore(ShadowClientSubscriberMixin):
                         "playing": "remote",
                     },
                     "color": {
-                        "id": self.color_id,
+                        "id": new_color_id,
                         "i": convert_from_percentage(brightness),
                     },
                 }
@@ -169,7 +171,7 @@ class Restore(ShadowClientSubscriberMixin):
         self._update(
             {
                 "color": {
-                    "id": self.color_id,
+                    "id": new_color_id,
                     "i": convert_from_percentage(brightness),
                 }
             }
