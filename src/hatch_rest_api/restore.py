@@ -144,7 +144,7 @@ class Restore(ShadowClientSubscriberMixin):
             )
 
     def set_color(
-        self, red: int, green: int, blue: int, white: int = 0, brightness: int = 0
+        self, color: RestoreColor, brightness: int = 0
     ):
         # 9999 = custom color 9998 = turn off
         new_color_id: int = 9999
