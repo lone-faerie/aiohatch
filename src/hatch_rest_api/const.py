@@ -91,6 +91,18 @@ class RestoreColor(Enum):
     Purple = 20
     LightPink = 21
 
+    def rgb(self):
+        if self is RestoreColor.White:
+            return 255, 255, 255
+        elif self is RestoreColor.WarmWhite:
+            return 253, 245, 230
+        elif self is RestoreColor.Coral:
+            return 255, 228, 225
+        elif self is RestoreColor.Red:
+            return 255, 0, 0
+        elif self is RestoreColor.LightOrange:
+            return 255, 218, 185
+
 RESTORE_COLORS = [
     RestoreColor.NONE,
     RestoreColor.White,
