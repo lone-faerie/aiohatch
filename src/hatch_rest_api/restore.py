@@ -155,9 +155,10 @@ class Restore(ShadowClientSubscriberMixin):
             )
 
     def set_color(
-        self, color: RestoreColor, brightness: int = 0
+        self, color: RestoreColor, brightness: int = -1
     ):
-        # 9999 = custom color 9998 = turn off
+        if brightness == -1:
+            brightness = self.brightness
         new_color_id: int = color.value if (color is not RestoreColor.NONE) else self.color.value
         _LOGGER.debug(
             f"Setting color: {color.name} brightness: {brightness}"
@@ -174,6 +175,7 @@ class Restore(ShadowClientSubscriberMixin):
                     "color": {
                         "id": new_color_id,
                         "i": convert_from_percentage(brightness),
+                        "enabled": True,
                     },
                 }
             )
@@ -182,6 +184,7 @@ class Restore(ShadowClientSubscriberMixin):
                 "color": {
                     "id": new_color_id,
                     "i": convert_from_percentage(brightness),
+                    "enabled": True,
                 }
             }
         )
