@@ -79,13 +79,26 @@ class RestoreColor(Enum):
     Yellow = 9
     Gold = 10
 
-    def xy_color(self):
+    def rgb_color(self):
         if self is RestoreColor.White:
-            return 0, 0
+            return 0, 0, 0
         elif self is RestoreColor.WarmWhite:
-            return 0, 0
+            return 0, 0, 0
+        elif self is RestoreColor.Coral:
+            return 0, 0, 0
+        elif self is RestoreColor.Red:
+            return 0, 0, 0
+        elif self is RestoreColor.LightOrange:
+            return 0, 0, 0
+        elif self is RestoreColor.Peach:
+            return 0, 0, 0
+        elif self is RestoreColor.Orange:
+            return 0, 0, 0
+        elif self is RestoreColor.LightYellow:
+            return 0, 0, 0
+        elif self is RestoreColor.Yellow:
+            return 0, 0, 0
+        elif self is RestoreColor.Gold:
+            return 0, 0, 0
         else:
-            return -1, -1
-
-    def get_closest(self, x, y):
-        pass
+            return -1, -1, -1
