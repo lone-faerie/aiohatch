@@ -20,7 +20,7 @@ class Restore(ShadowClientSubscriberMixin):
 
     current_playing: str = "none"
 
-    color_id: int = 9998
+    color: RestoreColor = None
     color_enabled: bool = False
     sound_id: int = 19998
     sound_enabled: bool = False
@@ -44,7 +44,7 @@ class Restore(ShadowClientSubscriberMixin):
         if safely_get_json_value(state, "sound.enabled", bool) is not None:
             self.sound_enabled = safely_get_json_value(state, "sound.enabled", bool)
         if safely_get_json_value(state, "color.id") is not None:
-            self.color_id = safely_get_json_value(state, "color.id", int)
+            self.color = RestoreColor(safely_get_json_value(state, "color.id", int))
         if safely_get_json_value(state, "color.enabled", bool) is not None:
             self.color_enabled = safely_get_json_value(state, "color.enabled", bool)
         if safely_get_json_value(state, "color.i") is not None:
