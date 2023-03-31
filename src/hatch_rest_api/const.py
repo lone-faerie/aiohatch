@@ -90,3 +90,29 @@ class RestoreColor(Enum):
     Lilac = 19
     Purple = 20
     LightPink = 21
+
+RESTORE_COLORS = [
+    RestoreColor.NONE,
+    RestoreColor.White,
+    RestoreColor.WarmWhite,
+    RestoreColor.Coral,
+    RestoreColor.Red,
+    RestoreColor.LightOrange,
+    RestoreColor.Peach,
+    RestoreColor.Orange,
+    RestoreColor.LightYellow,
+    RestoreColor.Yellow,
+    RestoreColor.Gold,
+    RestoreColor.LightGreen,
+    RestoreColor.Mint,
+    RestoreColor.Green,
+    RestoreColor.LightTurquoise,
+    RestoreColor.Aqua,
+    RestoreColor.Turquoise,
+    RestoreColor.LightBlue,
+    RestoreColor.Sky,
+    RestoreColor.Blue,
+    RestoreColor.Lilac,
+    RestoreColor.Purple,
+    RestoreColor.LightPink,
+]
