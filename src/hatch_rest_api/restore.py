@@ -186,4 +186,14 @@ class Restore(ShadowClientSubscriberMixin):
         )
 
     def set_routine_step(self, step: int):
-        pass
+        if step < 1:
+            self.turn_off()
+            return
+        self._update(
+            {
+                "content": {
+                    "playing": self.current_playing if self.current_playing == "routine" else "routine",
+                    "step": step,
+                }
+            }
+        )
