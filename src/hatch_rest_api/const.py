@@ -68,6 +68,8 @@ RIOT_FLAGS_CLOCK_ON = 32768
 
 class RestoreColor(Enum):
     NONE = 0
+    MalibuSunrise = 20
+    PortlandLighthouse = 
     White = 229
     WarmWhite = 228
     Coral = 205
