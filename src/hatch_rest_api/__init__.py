@@ -14,4 +14,6 @@ from .const import (
     REST_PLUS_AUDIO_TRACKS,
     RestoreColor,
     RESTORE_COLORS,
+    RESTORE_SUNRISE_COLORS,
+    RESTORE_ALL_COLORS,
 )
