@@ -125,6 +125,8 @@ RESTORE_COLORS = [
     RestoreColor.Lilac,
     RestoreColor.Purple,
     RestoreColor.LightPink,
+]
+RESTORE_SUNRISE_COLORS = [
     RestoreColor.MalibuSunrise,
     RestoreColor.PortlandLighthouse,
     RestoreColor.MorningInPrague,
@@ -136,3 +138,5 @@ RESTORE_COLORS = [
     RestoreColor.ConqueringFuji,
     RestoreColor.SpringSunrise,
 ]
+
+RESTORE_ALL_COLORS = RESTORE_COLORS + RESTORE_SUNRISE_COLORS
