@@ -69,9 +69,15 @@ RIOT_FLAGS_CLOCK_ON = 32768
 class RestoreColor(Enum):
     NONE = 0
     MalibuSunrise = 20
-    PortlandLighthouse = 
-    White = 229
-    WarmWhite = 228
+    PortlandLighthouse = 23
+    MorningInPrague = 24
+    HikingInTheDawn = 25
+    NordicSunrise = 26
+    MorningStroll = 27
+    TropicalMorning = 28
+    SunriseOfAFlowerOrchard = 29
+    ConqueringFuji = 37
+    SpringSunrise = 38
     Coral = 205
     Red = 206
     LightOrange = 207
@@ -83,15 +89,17 @@ class RestoreColor(Enum):
     LightGreen = 213
     Mint = 214
     Green = 215
-    LightTurquoise = 225
-    Aqua = 226
-    Turquoise = 227
     LightBlue = 216
     Sky = 217
     Blue = 218
     Lilac = 220
     Purple = 221
     LightPink = 222
+    LightTurquoise = 225
+    Aqua = 226
+    Turquoise = 227
+    WarmWhite = 228
+    White = 229
 
 RESTORE_COLORS = [
     RestoreColor.NONE,
@@ -117,4 +125,14 @@ RESTORE_COLORS = [
     RestoreColor.Lilac,
     RestoreColor.Purple,
     RestoreColor.LightPink,
+    RestoreColor.MalibuSunrise,
+    RestoreColor.PortlandLighthouse,
+    RestoreColor.MorningInPrague,
+    RestoreColor.HikingInTheDawn,
+    RestoreColor.NordicSunrise,
+    RestoreColor.MorningStroll,
+    RestoreColor.TropicalMorning,
+    RestoreColor.SunriseOfAFlowerOrchard,
+    RestoreColor.ConqueringFuji,
+    RestoreColor.SpringSunrise,
 ]
