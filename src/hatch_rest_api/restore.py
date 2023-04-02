@@ -128,7 +128,18 @@ class Restore(ShadowClientSubscriberMixin):
 
     def turn_off(self):
         _LOGGER.debug("Turning off sound")
-        self._update({"content": {"routineId": 0, "step": 0, "playing": "none"}})
+        self._update(
+            {
+                "content": {
+                    "routineId": 0,
+                    "step": 0,
+                    "playing": "none",
+                },
+                "sound": {
+                    "enabled": False,
+                },
+            }
+        )
 
     def turn_light_off(self):
         _LOGGER.debug(f"Turning light off")
@@ -138,7 +149,7 @@ class Restore(ShadowClientSubscriberMixin):
             self._update(
                 {
                     "color": {
-                        "enabled": false,
+                        "enabled": False,
                     }
                 }
             )
@@ -149,7 +160,7 @@ class Restore(ShadowClientSubscriberMixin):
                         "playing": "none",
                     },
                     "color": {
-                        "enabled": false,
+                        "enabled": False,
                     },
                 }
             )
