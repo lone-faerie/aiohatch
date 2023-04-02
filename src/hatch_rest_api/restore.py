@@ -209,6 +209,8 @@ class Restore(ShadowClientSubscriberMixin):
             {
                 "content": {
                     "playing": "routine",
+                    "paused": False,
+                    "offset": 0,
                     "step": step,
                 }
             }
